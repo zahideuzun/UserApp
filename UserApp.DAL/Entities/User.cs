@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UserApp.DAL.Entities
+﻿namespace UserApp.DAL.Entities
 {
 	public class User
 	{
@@ -15,8 +8,6 @@ namespace UserApp.DAL.Entities
 		public string PhoneNumber { get; set; }
 
 		//public IFormFile Image { get; set; } 
-
-
 
 	}
 }

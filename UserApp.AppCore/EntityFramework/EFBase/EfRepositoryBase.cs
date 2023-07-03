@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using UserApp.AppCore.Core.Bases;
 using UserApp.AppCore.EntityFramework.Data;
+using UserApp.AppCore.Results;
+using UserApp.AppCore.Results.Bases;
 
 namespace UserApp.AppCore.EntityFramework.EFBase
 {
@@ -14,7 +16,7 @@ namespace UserApp.AppCore.EntityFramework.EFBase
 		  ISelectableRepoAsync<TEntity>,
 		  IInsertableRepo<TEntity>,
 		  IInsertableRepoAsync<TEntity>,
-		  IUpdatetableRepo<TEntity>,
+		  IUpdatetableRepoAsync<TEntity>,
 	IDeletableRepo<TEntity>
 		  where TEntity : class, IEntity
 		 where TContext : DbContext, new()
@@ -35,10 +37,20 @@ namespace UserApp.AppCore.EntityFramework.EFBase
 			return item;
 		}
 
-		public async Task AddAsync(TEntity item)
+		public Task<Result> AddAsync(TEntity item)
 		{
-			await _context.Set<TEntity>().AddAsync(item);
+			throw new NotImplementedException();
 		}
+
+		//todo repoyu duzenle en bastan.. maalesef :( 
+		//public async Task<Result> AddAsync(TEntity item)
+		//{
+
+		//	var entityEntry = await _context.Set<TEntity>().AddAsync(item);
+		//	 await _context.SaveChangesAsync();
+
+
+		//}
 
 		public List<TEntity> AddRange(List<TEntity> items)
 		{
@@ -86,13 +98,16 @@ namespace UserApp.AppCore.EntityFramework.EFBase
 		{
 			_context.SaveChanges();
 		}
-
-		public void Update(TEntity item)
+		public async Task<Result> Update(TEntity item)
 		{
-			// _context.Set<TEntity>().Update(item);
-
 			_context.Entry(item).State = EntityState.Modified;
-			_context.Set<TEntity>().Attach(item);
+			await _context.SaveChangesAsync();
+			return new SuccessResult(); // veya isteğe bağlı bir sonuç döndürebilirsiniz.
 		}
+		//public async Task<Result> Update(TEntity item)
+		//{
+		//	_context.Entry(item).State = EntityState.Modified;
+		//	return await _context.Set<TEntity>().Update(item);
+		//}
 	}
 }

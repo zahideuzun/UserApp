@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Identity.Client;
 using UserApp.AppCore.DTOs.UserDTO;
 using UserApp.AppCore.Results;
 using UserApp.AppCore.Results.Bases;
 using UserApp.BLL.Abstract;
 using UserApp.DAL.Entities;
 using UserApp.DAL.Repositories.Infrastructor;
+using UserApp.DAL.Repositories;
 
 namespace UserApp.BLL.Concrate
 {
@@ -27,8 +29,12 @@ namespace UserApp.BLL.Concrate
 		public async Task<Result> Add(AddUserDTO model)
 		{
 			var user = _mapper.Map<User>(model);
-			var result = await _repository.AddAsync(user);
-			
+			var result = _repository.AddAsync(user);
+
+			//DataManager dataManager = new DataManager();
+			//var data = dataManager.GetUserRepository();
+			//data.AddAsync(user);
+
 			if (result.IsSuccessful)
 			{
 				return new SuccessResult("User added successfully.");
@@ -38,15 +44,24 @@ namespace UserApp.BLL.Concrate
 
 		}
 
-		public Task<Result> Delete(UserDTO user)
+		public async Task<Result> Delete(UserDTO user)
 		{
-			throw new NotImplementedException();
+			var model = _mapper.Map<User>(user);
+			var result = await _repository.Delete(model);
+			if (result.IsSuccessful)
+			{
+				return new SuccessResult("Used deleted successfully");
+			}
+
+			return new ErrorResult("user deleted error");
 		}
 
-		public Task<Result> Delete(object id)
-		{
-			throw new NotImplementedException();
-		}
+		//public async Task<Result> Delete(object id)
+		//{
+		//	var user = await _repository.GetByIdAsync(id);
+		//	var result = await _repository.Delete()
+			
+		//}
 
 		public List<UserDTO> GetAllUsers()
 		{

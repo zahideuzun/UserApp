@@ -16,7 +16,7 @@ namespace UserApp.BLL.Abstract
 		//Task<UserDTO> GetUserByName(string userName);
 		Task<Result> Add(AddUserDTO model);
 		Task<Result> Update(object id, UpdateUserDTO model);
-		Task<Result> Delete(object id);
+		//Task<Result> Delete(object id);
 		Task<Result> Delete(UserDTO user);
 	}
 }

@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UserApp.AppCore.Core.Bases;
 using UserApp.AppCore.EntityFramework.Data;
 using UserApp.AppCore.Results;
@@ -37,20 +32,14 @@ namespace UserApp.AppCore.EntityFramework.EFBase
 			return item;
 		}
 
-		public Task<Result> AddAsync(TEntity item)
-		{
-			throw new NotImplementedException();
-		}
-
 		//todo repoyu duzenle en bastan.. maalesef :( 
-		//public async Task<Result> AddAsync(TEntity item)
-		//{
+		public async Task AddAsync(TEntity item)
+		{
 
-		//	var entityEntry = await _context.Set<TEntity>().AddAsync(item);
-		//	 await _context.SaveChangesAsync();
-
-
-		//}
+			var entityEntry = await _context.Set<TEntity>().AddAsync(item);
+			await _context.SaveChangesAsync();
+			//return new SuccessResult();
+		}
 
 		public List<TEntity> AddRange(List<TEntity> items)
 		{
@@ -58,15 +47,11 @@ namespace UserApp.AppCore.EntityFramework.EFBase
 			return items;
 		}
 
-		public async Task AddRangeAsync(List<TEntity> items)
+		public async Task<Result> AddRangeAsync(List<TEntity> items)
 		{
 			await _context.Set<TEntity>().AddRangeAsync(items);
 		}
 
-		public void Delete(TEntity item)
-		{
-			_context.Set<TEntity>().Remove(item);
-		}
 
 		public List<TEntity> GetAll()
 		{
@@ -102,12 +87,14 @@ namespace UserApp.AppCore.EntityFramework.EFBase
 		{
 			_context.Entry(item).State = EntityState.Modified;
 			await _context.SaveChangesAsync();
-			return new SuccessResult(); // veya isteğe bağlı bir sonuç döndürebilirsiniz.
+			return new SuccessResult(); 
 		}
-		//public async Task<Result> Update(TEntity item)
-		//{
-		//	_context.Entry(item).State = EntityState.Modified;
-		//	return await _context.Set<TEntity>().Update(item);
-		//}
+
+		public async Task<Result> Delete(TEntity item)
+		{
+			_context.Set<TEntity>().Remove(item);
+			await _context.SaveChangesAsync();
+			return new SuccessResult();
+		}
 	}
 }

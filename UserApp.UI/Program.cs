@@ -39,7 +39,7 @@ namespace UserApp.UI
 			#region InstanceConfiguration
 
 			builder.Services.AddScoped<IUserManager, UserManager>();
-			builder.Services.AddScoped<UserRepositoryBase>();
+			builder.Services.AddScoped<UserRepository, UserRepository>();
 
             #endregion
 
@@ -66,7 +66,7 @@ namespace UserApp.UI
 
             app.MapControllerRoute(
 				name: "default",
-				pattern: "{controller=Home}/{action=Index}/{id?}");
+				pattern: "{controller=User}/{action=Index}/{id?}");
 
 			app.Run();
 		}

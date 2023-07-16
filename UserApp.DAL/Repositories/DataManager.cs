@@ -17,10 +17,10 @@ namespace UserApp.DAL.Repositories
 			Context = new UserAppContext();
 		}
 
-		public IUserRepository GetUserRepository()
-		{
-			return new UserRepositoryBase(Context);
-		}
+		//public IUserRepository GetUserRepository()
+		//{
+		//	return new UserRepositoryBase(Context);
+		//}
 		public void MySaveChanges()
 		{
 			Context.SaveChanges();

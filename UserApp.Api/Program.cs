@@ -2,8 +2,11 @@ using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using UserApp.BLL.Abstract;
+using UserApp.BLL.Concrate;
 using UserApp.DAL.Context;
 using UserApp.DAL.Mapping;
+using UserApp.DAL.Repositories.Derived;
 
 namespace UserApp.Api
 {
@@ -18,7 +21,12 @@ namespace UserApp.Api
 			builder.Services.AddControllers();
             builder.Services.AddDbContext<UserAppContext>(a => a.UseSqlServer(builder.Configuration.GetConnectionString("UserAppDB")));
 
+            #region InstanceConfiguration
 
+            builder.Services.AddScoped<IUserManager, UserManager>();
+            builder.Services.AddScoped<UserRepository, UserRepository>();
+
+            #endregion
 
             #region MappingConfiguration
 

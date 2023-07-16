@@ -19,26 +19,26 @@ namespace UserApp.Api.Controllers
 			_userManager = userManager;
 		}
         [HttpGet("UserList")]
-        public List<UserDTO> GetAll()
+        public List<UserDTO> GetAllUsers()
         {
             return _userManager.GetAll().ToList();
         }
 
         [HttpGet("GetUser/{id}")]
-        public UserDTO Get(int id)
+        public UserDTO UserGet(int id)
         {
             return _userManager.Get(id);
         }
 
         [HttpPost("AddUser")]
-        public async Task<IActionResult> Post([FromBody] AddUserDTO user)
+        public async Task<IActionResult> UserAdd([FromBody] AddUserDTO user)
         {
             var addedUser = await _userManager.AddAsync(user);
             return BaseActionType.ReturnResponse(addedUser);
         }
 
-        [HttpPut("UserUpdate/{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] UpdateUserDTO user)
+        [HttpPost("UserUpdate/{id}")]
+        public async Task<IActionResult> UserUpdate(int id, [FromBody] UpdateUserDTO user)
         {
             var updatedUser = await _userManager.UpdateAsync(id, user);
             return BaseActionType.ReturnResponse(updatedUser);

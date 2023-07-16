@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace UserApp.AppCore.DTOs.UserDTO
 {
-	public class UpdateUserDTO
+    public class UpdateUserDTO
 	{
 		public string Name { get; set; }
 		public string Surname { get; set; }

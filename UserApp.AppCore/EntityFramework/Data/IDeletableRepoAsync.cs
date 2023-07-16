@@ -9,8 +9,9 @@ using UserApp.AppCore.Results.Bases;
 
 namespace UserApp.AppCore.EntityFramework.Data
 {
-	public interface IDeletableRepo<T> : IRepository<T> where T : class, IEntity
+	public interface IDeletableRepoAsync<T> : IRepository<T> where T : class, IEntity
 	{
-		Task<Result> Delete(T item);
+		Task Delete(object id);
+		Task Delete(T item);
 	}
 }

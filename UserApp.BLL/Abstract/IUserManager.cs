@@ -4,19 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UserApp.AppCore.Core.Bases;
 using UserApp.AppCore.DTOs.UserDTO;
 using UserApp.AppCore.Results.Bases;
 
 namespace UserApp.BLL.Abstract
 {
-	public interface IUserManager
+	public interface IUserManager : IService<UserDTO, AddUserDTO,UpdateUserDTO>
 	{
-		List<UserDTO> GetAllUsers();
-		Task<UserDTO> GetUser(object id);
-		//Task<UserDTO> GetUserByName(string userName);
-		Task<Result> Add(AddUserDTO model);
-		Task<Result> Update(object id, UpdateUserDTO model);
-		//Task<Result> Delete(object id);
-		Task<Result> Delete(UserDTO user);
-	}
+        Task<UserDTO> GetUser(object id);
+        Task<Result> AddAsync(AddUserDTO model);
+        Task<Result> UpdateAsync(int id, UpdateUserDTO model);
+        Task<Result> DeleteAsync(UserDTO user);
+        Task<Result> DeleteAsync(int id);
+    }
 }

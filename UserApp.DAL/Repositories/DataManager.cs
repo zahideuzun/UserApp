@@ -19,7 +19,7 @@ namespace UserApp.DAL.Repositories
 
 		public IUserRepository GetUserRepository()
 		{
-			return new UserRepository(Context);
+			return new UserRepositoryBase(Context);
 		}
 		public void MySaveChanges()
 		{

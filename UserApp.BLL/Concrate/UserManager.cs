@@ -12,86 +12,134 @@ using UserApp.BLL.Abstract;
 using UserApp.DAL.Entities;
 using UserApp.DAL.Repositories.Infrastructor;
 using UserApp.DAL.Repositories;
+using UserApp.DAL.Repositories.Derived;
+using UserApp.AppCore.Core.Bases;
+using System.Data.Entity;
+using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 
 namespace UserApp.BLL.Concrate
 {
-	public class UserManager : IUserManager
-	{
-		private readonly IUserRepository _repository;
-		private readonly IMapper _mapper;
+    public class UserManager : IUserManager
+    {
+        private readonly UserRepository _repository;
+        private readonly IMapper _mapper;
 
-		public UserManager(IUserRepository repository, IMapper mapper)
-		{
-			_repository = repository;
-			_mapper = mapper;
-		}
+        public UserManager(UserRepository repository, IMapper mapper)
+        {
+            _repository = repository;
+            _mapper = mapper;
+        }
+        public Result Add(AddUserDTO model)
+        {
+            if (_repository.Query().Any(c => c.Email.ToLower() == model.Email.ToLower().Trim()))
+                return new ErrorResult("User can't be added because user with the same email address exists!");
+            var entity = _mapper.Map<User>(model);
+            _repository.Add(entity);
+            return new SuccessResult();
+        }
 
-		public async Task<Result> Add(AddUserDTO model)
-		{
-			var user = _mapper.Map<User>(model);
-			var result = _repository.AddAsync(user);
+        public async Task<Result> AddAsync(AddUserDTO model)
+        {
+            if (_repository.Query().Any(c => c.Email.ToLower() == model.Email.ToLower().Trim()))
+                return new ErrorResult("User can't be added because user with the same email address exists!");
+            var entity = _mapper.Map<User>(model);
 
-			//DataManager dataManager = new DataManager();
-			//var data = dataManager.GetUserRepository();
-			//data.AddAsync(user);
+            var result = _repository.AddAsync(entity);
+                return new SuccessResult("User added successfully.");
+            
+        }
 
-			if (result.IsSuccessful)
-			{
-				return new SuccessResult("User added successfully.");
-			}
+        public async Task<Result> DeleteAsync(UserDTO user)
+        {
+            // iliskili oldugu tablo olursa burada query ile kontrol edip silinmeyi engelleyebilirsin!
+            if (Get(user.UserId) != null)
+            {
+                var model = _mapper.Map<User>(user);
+                await _repository.Delete(model);
+                return new SuccessResult("User deleted successfully.");
+            }
+            return new ErrorResult("User not found");
+        }
 
-			return new ErrorResult($"User added error");
+        public Result Delete(int id)
+        {
+            if (Get(id) != null)
+            {
+                _repository.Delete(id);
+                return new SuccessResult("User deleted successfully.");
+            }
+            return new ErrorResult("User not found");
+        }
 
-		}
+        public void Dispose()
+        {
+            _repository.Dispose();
+        }
 
-		public async Task<Result> Delete(UserDTO user)
-		{
-			var model = _mapper.Map<User>(user);
-			var result = await _repository.Delete(model);
-			if (result.IsSuccessful)
-			{
-				return new SuccessResult("Used deleted successfully");
-			}
+        public UserDTO Get(int id)
+        {
+            var user = _repository.GetById(id);
+            return _mapper.Map<UserDTO>(user);
+        }
 
-			return new ErrorResult("user deleted error");
-		}
+        public IQueryable<UserDTO> GetAll()
+        {
+            var userList = _repository.GetAll();
+            return _mapper.Map<List<UserDTO>>(userList).AsQueryable();
+        }
 
-		//public async Task<Result> Delete(object id)
-		//{
-		//	var user = await _repository.GetByIdAsync(id);
-		//	var result = await _repository.Delete()
-			
-		//}
+        public async Task<UserDTO> GetUser(object id)
+        {
+            var user = await _repository.GetByIdAsync(id);
+            return _mapper.Map<UserDTO>(user);
+        }
 
-		public List<UserDTO> GetAllUsers()
-		{
-			var userList = _repository.GetAllAsync();
-			return _mapper.Map<List<UserDTO>>(userList);
-		}
+        public async Task<Result> UpdateAsync(int id, UpdateUserDTO model)
+        {
+            //TODO validationlar burada UpdateUserDto üzerinden yapilacak.
+            var user = _repository.GetById(id);
+            if (user.Id != null)
+            {
+                user.Id = id;
+                user.Name = model.Name;
+                user.Surname = model.Surname;
+                user.Email = model.Email;
+                user.PhoneNumber = model.PhoneNumber;
+                user.ImageURL = model.ImageURL;
+                user.UpdatedDate = DateTime.Now;
+            }
+             await _repository.Update(user);
+            
+                return new ErrorResult("User not found!");
+        }
 
-		public async Task<UserDTO> GetUser(object id)
-		{
-			var user = await _repository.GetByIdAsync(id);
-			return _mapper.Map<UserDTO>(user);
-		}
+        public Result Update(int id, UpdateUserDTO model)
+        {
+            //TODO validationlar burada UpdateUserDto üzerinden yapilacak.
+            var user = _repository.GetById(id);
+            if (user.Id != null)
+            {
+                user.Id = id;
+                user.Name = model.Name;
+                user.Surname = model.Surname;
+                user.Email = model.Email;
+                user.PhoneNumber = model.PhoneNumber;
+                user.ImageURL = model.ImageURL;
+                user.UpdatedDate = DateTime.Now;
+            }
+            _repository.Update(user);
 
-		//public Task<UserDTO> GetUserByName(string userName)
-		//{
-		//	throw new NotImplementedException();
-		//}
+            return new ErrorResult("User not found!");
+        }
 
-		public async Task<Result> Update(object id, UpdateUserDTO model)
-		{
-			var user = await _repository.GetByIdAsync(id);
-			user.Id = (int)id;
-			user.Name = model.Name;
-			user.Email = model.Email;
-			user.UpdatedDate = DateTime.Now;
-
-			var result = await _repository.Update(user);
-			if (result.IsSuccessful) return new SuccessResult("User updated successfully.");
-
-			return new ErrorResult($"User updated error");
-		}
-	}
+        public async Task<Result> DeleteAsync(int id)
+        {
+            if (Get(id) != null)
+            {
+                await _repository.Delete(id);
+                return new SuccessResult("User deleted successfully.");
+            }
+            return new ErrorResult("User not found");
+        }
+    }
 }

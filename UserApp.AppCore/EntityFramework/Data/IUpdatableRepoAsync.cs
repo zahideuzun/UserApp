@@ -11,6 +11,6 @@ namespace UserApp.AppCore.EntityFramework.Data
 {
 	public interface IUpdatetableRepoAsync<T> : IRepository<T> where T : class, IEntity
 	{
-		Task<Result> Update(T item);
+		Task Update(T item);
 	}
 }

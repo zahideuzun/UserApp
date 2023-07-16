@@ -39,14 +39,14 @@ namespace UserApp.UI
 			#region InstanceConfiguration
 
 			builder.Services.AddScoped<IUserManager, UserManager>();
-			builder.Services.AddScoped<IUserRepository, UserRepository>();
+			builder.Services.AddScoped<UserRepositoryBase>();
 
-			#endregion
+            #endregion
+
+            
 
 
-
-
-			var app = builder.Build();
+            var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
 			if (!app.Environment.IsDevelopment())
@@ -62,8 +62,9 @@ namespace UserApp.UI
 			app.UseRouting();
 
 			app.UseAuthorization();
+            
 
-			app.MapControllerRoute(
+            app.MapControllerRoute(
 				name: "default",
 				pattern: "{controller=Home}/{action=Index}/{id?}");
 

@@ -12,6 +12,6 @@ namespace UserApp.AppCore.EntityFramework.Data
 	public interface IInsertableRepoAsync<T> : IRepository<T> where T : class, IEntity
 	{
 		Task AddAsync(T item);
-		Task<Result> AddRangeAsync(List<T> items);
+		Task AddRangeAsync(List<T> items);
 	}
 }

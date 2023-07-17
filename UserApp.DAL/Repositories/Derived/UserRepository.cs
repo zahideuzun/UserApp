@@ -23,14 +23,4 @@ namespace UserApp.DAL.Repositories.Derived
         {
         }
     }
-    //      private readonly UserAppContext _context;
-    //public UserRepository()
-    //{
-
-    //}
-    //public UserRepository(UserAppContext context) : base(context)
-    //{
-    //	_context = context;
-    //}
-
 }

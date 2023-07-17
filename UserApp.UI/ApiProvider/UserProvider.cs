@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System.Net.Http;
 using UserApp.AppCore.DTOs.UserDTO;
+using UserApp.AppCore.Results.Bases;
+using UserApp.UI.ApiProvider.Bases;
 
 namespace UserApp.UI.ApiProvider
 {
@@ -22,6 +24,13 @@ namespace UserApp.UI.ApiProvider
             }
 
             return list;
+        }
+        public async Task<Result> AddUser(AddUserDTO user)
+        {
+            ProviderBase<AddUserDTO> addedUser = new ProviderBase<AddUserDTO>(_httpClient);
+
+            return await addedUser.ProviderBasePostAsync<Result>($"User/AddUser", user);
+
         }
     }
 }

@@ -1,0 +1,45 @@
+﻿@removeTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model UserApp.AppCore.DTOs.UserDTO.AddUserDTO
+
+@{
+    ViewData["Title"] = "AddUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<form class="form-group" asp-action="AddUser" asp-controller="User" method="post" enctype="multipart/form-data"> 
+    @Html.AntiForgeryToken()
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-description"> New User</p>
+                
+                    <div class="form-group">
+                        <label>Name</label>
+                        @Html.TextBoxFor(x =>x.Name , new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Surname</label>
+                        @Html.TextBoxFor(x => x.Surname, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Choose Photo</label>
+                        <input type="file" name="ImageURL">
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2">Save</button>
+                    <button class="btn btn-dark">Back</button>
+                
+            </div>
+        </div>
+    </div>
+</form>
+

@@ -18,6 +18,7 @@ namespace UserApp.Api.Controllers
 		{
 			_userManager = userManager;
 		}
+
         [HttpGet("UserList")]
         public List<UserDTO> GetAllUsers()
         {

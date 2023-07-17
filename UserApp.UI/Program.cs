@@ -9,6 +9,9 @@ using UserApp.DAL.Context;
 using UserApp.DAL.Repositories.Derived;
 using UserApp.DAL.Repositories.Infrastructor;
 using Microsoft.Extensions.DependencyInjection;
+using UserApp.UI.ApiProvider;
+using Microsoft.AspNetCore.Mvc;
+using UserApp.AppCore.Core.Bases;
 
 namespace UserApp.UI
 {
@@ -43,9 +46,23 @@ namespace UserApp.UI
 
             #endregion
 
+            #region ApiProvider
+            builder.Services.AddHttpClient<UserProvider>(x =>
+            {
+                x.BaseAddress = new Uri(builder.Configuration["apiBaseUrl"]);
+                x.Timeout = TimeSpan.FromSeconds(120);
+            });
+            #endregion
+
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
             
 
-
+            builder.Services.AddHttpContextAccessor();
             var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
@@ -58,7 +75,7 @@ namespace UserApp.UI
 
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
-
+			app.UseSession();
 			app.UseRouting();
 
 			app.UseAuthorization();

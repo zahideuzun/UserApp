@@ -39,5 +39,21 @@ namespace UserApp.UI.ApiProvider
 
             return await user.ProviderBaseGetAsync($"User/GetUser/{id}");
         }
+
+        public async Task<Result> UpdateUser(UpdateUserDTO user, int id)
+        {
+            ProviderBase<UpdateUserDTO> updatedUser = new ProviderBase<UpdateUserDTO>(_httpClient);
+
+            return await updatedUser.ProviderBasePostAsync<Result>($"User/UserUpdate/{id}", user);
+
+        }
+
+        //public async Task<Result> DeleteUser(int id)
+        //{
+        //    ProviderBase<UserDTO> deletedUser = new ProviderBase<UserDTO>(_httpClient);
+
+        //    return await deletedUser.ProviderBasePostAsync<Result>($"User/UserDelete/{id}");
+
+        //}
     }
 }

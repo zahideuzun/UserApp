@@ -22,18 +22,6 @@ namespace UserApp.AppCore
             }
             return newImageName;
         }
-
-        public static string MoveFileToDestination(string sourceFilePath)
-        {
-            // Dosyanın taşınacağı veya işleneceği hedef konumu belirleyin
-            string destinationPath = "Hedef/Konumu/Dizin/DosyaAdi.jpg";
-
-            // Geçici konumdan hedef konuma dosyayı taşıyın
-            File.Move(sourceFilePath, destinationPath);
-
-            // Hedef konumunu veya dosya yolunu dönün
-            return destinationPath;
-        }
     }
 
     

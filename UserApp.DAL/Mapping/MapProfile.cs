@@ -16,7 +16,10 @@ namespace UserApp.DAL.Mapping
 			CreateMap<UserDTO, User>();
 			CreateMap<User, UserDTO>();
 
-			CreateMap<AddUserDTO, User>();
+            CreateMap<UserDTO, UpdateUserDTO>();
+            CreateMap<UpdateUserDTO, UserDTO>();
+
+            CreateMap<AddUserDTO, User>();
 			CreateMap<User, AddUserDTO>();
 
 			CreateMap<UpdateUserDTO, User>();

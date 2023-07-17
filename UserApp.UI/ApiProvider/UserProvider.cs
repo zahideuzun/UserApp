@@ -32,5 +32,12 @@ namespace UserApp.UI.ApiProvider
             return await addedUser.ProviderBasePostAsync<Result>($"User/AddUser", user);
 
         }
+
+        public async Task<UserDTO?> GetUser(int id)
+        {
+            ProviderBase<UserDTO> user = new ProviderBase<UserDTO>(_httpClient);
+
+            return await user.ProviderBaseGetAsync($"User/GetUser/{id}");
+        }
     }
 }

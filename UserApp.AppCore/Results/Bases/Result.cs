@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UserApp.AppCore.Results.Bases
 {
-	public abstract class Result
+	public class Result
 	{
 		public bool IsSuccessful { get; }
 		public string Message { get; set; }

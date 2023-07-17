@@ -51,8 +51,12 @@ namespace UserApp.UI.ApiProvider.Bases
                 var result = JsonConvert.DeserializeObject<T>(resultJson);
                 return result;
             }
-
-            return default(T);
+            else
+            {
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                Console.WriteLine("API yanıtı hata mesajı: " + errorMessage);
+            }
+                return default(T);
         }
 
     }

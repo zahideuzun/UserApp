@@ -16,25 +16,12 @@ namespace UserApp.DAL.Mapping
 			CreateMap<UserDTO, User>();
 			CreateMap<User, UserDTO>();
 
-			CreateMap<AddUserDTO, User>()
-				.ForMember(dest => dest.ImageURL, opt => opt.MapFrom(src => src.ImageURL.FileName));
+			CreateMap<AddUserDTO, User>();
+			CreateMap<User, AddUserDTO>();
 
-			CreateMap<User, AddUserDTO>()
-				.ForMember(dest => dest.ImageURL, opt => opt.Ignore())
-				.AfterMap((src, dest) =>
-				{
-					dest.ImageURL = null;
-				});
-
-			CreateMap<UpdateUserDTO, User>()
-				.ForMember(dest => dest.ImageURL, opt => opt.MapFrom(src => src.ImageURL.FileName));
-
-			CreateMap<User, UpdateUserDTO>()
-				.ForMember(dest => dest.ImageURL, opt => opt.Ignore())
-				.AfterMap((src, dest) =>
-				{
-					dest.ImageURL = null;
-				});
+			CreateMap<UpdateUserDTO, User>();
+			CreateMap<User, UpdateUserDTO>();
+				
 		}
 	}
 	

@@ -102,10 +102,8 @@ namespace UserApp.AppCore.EntityFramework.EFBase
 		//todo repoyu duzenle en bastan.. maalesef :( 
 		public async Task AddAsync(TEntity item)
 		{
-
 			var entityEntry = await _context.Set<TEntity>().AddAsync(item);
 			await _context.SaveChangesAsync();
-			//return new SuccessResult();
 		}
 
 		public List<TEntity> AddRange(List<TEntity> items)

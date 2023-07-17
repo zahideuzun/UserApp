@@ -32,7 +32,7 @@ namespace UserApp.Api.Controllers
         }
 
         [HttpPost("AddUser")]
-        public async Task<IActionResult> UserAdd([FromBody] AddUserDTO user)
+        public async Task<IActionResult> AddUser([FromBody] AddUserDTO user)
         {
             var addedUser = await _userManager.AddAsync(user);
             return BaseActionType.ReturnResponse(addedUser);

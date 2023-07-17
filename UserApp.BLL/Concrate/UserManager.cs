@@ -34,19 +34,6 @@ namespace UserApp.BLL.Concrate
             if (_repository.Query().Any(c => c.Email.ToLower() == model.Email.ToLower().Trim()))
                 return new ErrorResult("User can't be added because user with the same email address exists!");
             var entity = _mapper.Map<User>(model);
-            if (entity.ImageURL != null)
-            {
-                var extension = Path.GetExtension(model.ImageURL.FileName);
-                var newImageName = Guid.NewGuid() + extension;
-                var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/", newImageName);
-                var stream = new FileStream(location, FileMode.Create);
-                model.ImageURL.CopyTo(stream);
-                entity.ImageURL = newImageName;
-            }
-            entity.Name = model.Name;
-            entity.Email = model.Email;
-            entity.Surname = model.Surname;
-            entity.PhoneNumber = model.PhoneNumber;
             _repository.Add(entity);
             return new SuccessResult();
         }
@@ -56,30 +43,14 @@ namespace UserApp.BLL.Concrate
             if (_repository.Query().Any(c => c.Email.ToLower() == model.Email.ToLower().Trim()))
                 return new ErrorResult("User can't be added because user with the same email address exists!");
             var entity = _mapper.Map<User>(model);
-
-            if (entity.ImageURL != null)
-            {
-                var extension = Path.GetExtension(model.ImageURL.FileName);
-                var newImageName = Guid.NewGuid() + extension;
-                var location = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot/images/", newImageName);
-                var stream = new FileStream(location, FileMode.Create);
-                model.ImageURL.CopyTo(stream);
-                entity.ImageURL = newImageName;
-            }
-            entity.Name = model.Name;
-            entity.Email = model.Email;
-            entity.Surname = model.Surname;
-            entity.PhoneNumber = model.PhoneNumber;
-
-            var result = _repository.AddAsync(entity);
+             await _repository.AddAsync(entity);
                 return new SuccessResult("User added successfully.");
-            
         }
 
         public async Task<Result> DeleteAsync(UserDTO user)
         {
             // iliskili oldugu tablo olursa burada query ile kontrol edip silinmeyi engelleyebilirsin!
-            if (Get(user.UserId) != null)
+            if (Get(user.Id) != null)
             {
                 var model = _mapper.Map<User>(user);
                 await _repository.Delete(model);
@@ -132,11 +103,12 @@ namespace UserApp.BLL.Concrate
                 user.Surname = model.Surname;
                 user.Email = model.Email;
                 user.PhoneNumber = model.PhoneNumber;
-                user.ImageURL = model.ImageURL.FileName;
+                user.ImageURL = model.ImageURL;
                 user.UpdatedDate = DateTime.Now;
+
+                await _repository.Update(user);
+                return new SuccessResult("User updated successfull!");
             }
-             await _repository.Update(user);
-            
                 return new ErrorResult("User not found!");
         }
 
@@ -151,11 +123,12 @@ namespace UserApp.BLL.Concrate
                 user.Surname = model.Surname;
                 user.Email = model.Email;
                 user.PhoneNumber = model.PhoneNumber;
-                user.ImageURL = model.ImageURL.FileName;
+                user.ImageURL = model.ImageURL;
                 user.UpdatedDate = DateTime.Now;
-            }
-            _repository.Update(user);
 
+                _repository.Update(user);
+                return new SuccessResult("User updated successfull!");
+            }
             return new ErrorResult("User not found!");
         }
 

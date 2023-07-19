@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
+using NLog;
 using UserApp.Api.Controllers;
 using UserApp.AppCore.DTOs.UserDTO;
 using UserApp.AppCore.Results;
@@ -8,17 +9,20 @@ using UserApp.BLL.Abstract;
 
 namespace UserApp.XUnitTest
 {
-    public class UserControllerTests
+    public class UserControllerTests : IDisposable
 
     {
         private readonly Mock<IUserManager> _mockUserManager;
         private readonly UserController _userController;
-        
+        private readonly Logger _logger;
+
 
         public UserControllerTests()
         {
             _mockUserManager = new Mock<IUserManager>();
             _userController = new UserController(_mockUserManager.Object);
+            _logger = LogManager.GetCurrentClassLogger();
+            LogManager.Setup().LoadConfigurationFromFile("nlog.config");
         }
         
         [Fact]
@@ -80,6 +84,8 @@ namespace UserApp.XUnitTest
 
             // Assert
             Assert.True(result is ObjectResult objectResult && objectResult.StatusCode == 200);
+            Assert.NotNull(result);
+            _mockUserManager.Verify(repo => repo.AddAsync(userToAdd), Times.Once);
         }
 
         // ayni email adresiyle yeni bir ekleme yapamayacagim icin error result donecek. status code yine 200 fakat result tipi farkli?
@@ -112,7 +118,7 @@ namespace UserApp.XUnitTest
         public async void UpdatePost_ReturnsSuccessResultWhenUserIsUpdated()
         {
             // Arrange
-            var commentToUpdate = new UpdateUserDTO 
+            var commentToUpdate = new UpdateUserDTO
             {
                 Name = "Zahide",
                 Surname = "zahide",
@@ -124,11 +130,20 @@ namespace UserApp.XUnitTest
 
             _mockUserManager.Setup(service => service.UpdateAsync(1, commentToUpdate)).Returns(expectedServiceResult);
 
+            var logEvent = new LogEventInfo(LogLevel.Info, _logger.Name, "Test başladı.");
+            logEvent.Properties["TestDateTime"] = DateTime.Now;
+            _logger.Log(logEvent);
+
             // Act
             var result = await _userController.UserUpdate(1, commentToUpdate);
 
             // Assert
             Assert.True(result is ObjectResult objectResult && objectResult.StatusCode == 200);
+
+            logEvent = new LogEventInfo(LogLevel.Info, _logger.Name, "Test bitti.");
+            logEvent.Properties["TestDateTime"] = DateTime.Now;
+            logEvent.Properties["TestSuccess"] = true; // Test başarılı olduğunu farz edelim, test sonucunu buna göre ayarlayabilirsiniz
+            _logger.Log(logEvent);
         }
 
         [Fact]
@@ -144,6 +159,11 @@ namespace UserApp.XUnitTest
 
             // Assert
             Assert.True(result is ObjectResult objectResult && objectResult.StatusCode == 200);
+        }
+
+        public void Dispose()
+        {
+            LogManager.Shutdown();
         }
 
         //[Fact]

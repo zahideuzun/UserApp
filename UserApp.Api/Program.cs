@@ -2,6 +2,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using NLog.Extensions.Logging;
+using UserApp.AppCore.Core.Bases;
 using UserApp.BLL.Abstract;
 using UserApp.BLL.Concrate;
 using UserApp.DAL.Context;
@@ -49,6 +51,18 @@ namespace UserApp.Api
             });
 
             #endregion
+
+            #region NLogConfiguration
+
+            builder.Services.AddLogging(loggingBuilder =>
+            {
+                loggingBuilder.ClearProviders();
+                loggingBuilder.SetMinimumLevel(LogLevel.Trace);
+                loggingBuilder.AddNLog(); // NLog'un AspNetCore entegrasyonunu ekleyin
+            });
+            #endregion
+
+
 
             var app = builder.Build();
 

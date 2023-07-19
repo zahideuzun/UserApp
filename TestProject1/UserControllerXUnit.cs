@@ -9,14 +9,14 @@ using UserApp.BLL.Abstract;
 
 namespace TestProject1
 {
-    public class UnitTest1
+    public class UserControllerXUnit
     {
         private readonly Mock<IUserManager> _mockUserManager;
         private readonly UserController _userController;
         private readonly Logger _logger;
 
 
-        public UnitTest1()
+        public UserControllerXUnit()
         {
             _mockUserManager = new Mock<IUserManager>();
             _userController = new UserController(_mockUserManager.Object);
@@ -91,26 +91,49 @@ namespace TestProject1
         [Fact]
         public async void AddPost_ReturnsErrorResultWhenUserIsAdded()
         {
-            // Arrange
-            var userToAdd = new AddUserDTO
+            try
             {
-                Name = "Kerem",
-                Surname = "Yardým",
-                PhoneNumber = "13245679801",
-                Email = "k@gmail.com",
-                ImageURL = "12345keremfoto.jpg",
-            };
-            var expectedServiceResult = Task.FromResult<Result>(new ErrorResult());
+                // Arrange
+                var userToAdd = new AddUserDTO
+                {
+                    Name = "Kerem",
+                    Surname = "Yardým",
+                    PhoneNumber = "13245679801",
+                    Email = "k@gmail.com",
+                    ImageURL = "12345keremfoto.jpg",
+                };
+                var expectedServiceResult = Task.FromResult<Result>(new ErrorResult());
 
-            _mockUserManager
-                .Setup(service => service.AddAsync(userToAdd))
-                .Returns(expectedServiceResult);
+                _mockUserManager
+                    .Setup(service => service.AddAsync(userToAdd))
+                    .Returns(expectedServiceResult);
 
-            // Act
-            var result = await _userController.AddUser(userToAdd);
+                var logEvent = new LogEventInfo(LogLevel.Info, _logger.Name, "Test baþladý.");
+                logEvent.Properties["TestDateTime"] = DateTime.Now;
+                _logger.Log(logEvent);
 
-            // Assert
-            Assert.True(result is ObjectResult objectResult && objectResult.StatusCode == 200);
+                // Act
+                var result = await _userController.AddUser(userToAdd);
+
+                // Assert
+                Assert.True(result is ObjectResult objectResult && objectResult.StatusCode == 200);
+
+                logEvent = new LogEventInfo(LogLevel.Trace, _logger.Name, $"Test baþarýyla bitti. {nameof(AddPost_ReturnsErrorResultWhenUserIsAdded)}");
+                logEvent.Properties["TestDateTime"] = DateTime.Now;
+                logEvent.Properties["TestSuccess"] = true;
+                _logger.Log(logEvent);
+            }
+            catch (Exception ex)
+            {
+
+                // Test baþarýsýz oldu, hata logla
+                var logEvent = new LogEventInfo(LogLevel.Error, _logger.Name, $"Test baþarýsýz oldu: {nameof(AddPost_ReturnsErrorResultWhenUserIsAdded)}" + ex.Message);
+                _logger.Log(logEvent);
+
+                // Testi tekrar fýrlat, bu sayede test çerçevesi baþarýsýzlýðý alacaktýr
+                throw;
+            }
+            
         }
 
         [Fact]
@@ -129,7 +152,7 @@ namespace TestProject1
                 };
                 var expectedServiceResult = Task.FromResult<Result>(new SuccessResult());
 
-                _mockUserManager.Setup(service => service.UpdateAsync(25, commentToUpdate)).Returns(expectedServiceResult);
+                _mockUserManager.Setup(service => service.UpdateAsync(1, commentToUpdate)).Returns(expectedServiceResult);
 
                 var logEvent = new LogEventInfo(LogLevel.Info, _logger.Name, "Test baþladý.");
                 logEvent.Properties["TestDateTime"] = DateTime.Now;
@@ -145,8 +168,7 @@ namespace TestProject1
                 logEvent.Properties["TestDateTime"] = DateTime.Now;
                 logEvent.Properties["TestSuccess"] = true;
                 _logger.Log(logEvent);
-                _logger.Error("hata");
-                _logger.Info("info");
+                
             }
 
             catch (Exception ex)
@@ -158,15 +180,6 @@ namespace TestProject1
                 // Testi tekrar fýrlat, bu sayede test çerçevesi baþarýsýzlýðý alacaktýr
                 throw;
             }
-        }
-
-        [Fact]
-        public void Test1()
-        {
-            //Logger logger = LogManager.GetCurrentClassLogger();
-
-            _logger.Error("This is info error message");
-
         }
 
         [Fact]

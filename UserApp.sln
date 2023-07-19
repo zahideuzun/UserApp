@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserApp.XUnitTest", "UserAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserApp.NUnitTest", "UserApp.NUnitTest\UserApp.NUnitTest.csproj", "{3B0ED761-7F14-41D2-851A-115EA0ED3C28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "TestProject1\TestProject1.csproj", "{2CFB2B21-28B8-448E-8D38-00FBCE4694CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserApp.XUnitTestAndNLog", "TestProject1\UserApp.XUnitTestAndNLog.csproj", "{2CFB2B21-28B8-448E-8D38-00FBCE4694CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

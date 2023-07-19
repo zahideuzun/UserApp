@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserApp.BLL", "UserApp.BLL\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserApp.DAL", "UserApp.DAL\UserApp.DAL.csproj", "{8B976347-A3D9-4CA4-83D9-C3957B3F88CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserApp.XUnitTest", "UserApp.XUnitTest\UserApp.XUnitTest.csproj", "{7633651A-BC8B-4C59-9828-21D96C4B744F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserApp.NUnitTest", "UserApp.NUnitTest\UserApp.NUnitTest.csproj", "{3B0ED761-7F14-41D2-851A-115EA0ED3C28}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{8B976347-A3D9-4CA4-83D9-C3957B3F88CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B976347-A3D9-4CA4-83D9-C3957B3F88CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B976347-A3D9-4CA4-83D9-C3957B3F88CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7633651A-BC8B-4C59-9828-21D96C4B744F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7633651A-BC8B-4C59-9828-21D96C4B744F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7633651A-BC8B-4C59-9828-21D96C4B744F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7633651A-BC8B-4C59-9828-21D96C4B744F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B0ED761-7F14-41D2-851A-115EA0ED3C28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B0ED761-7F14-41D2-851A-115EA0ED3C28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B0ED761-7F14-41D2-851A-115EA0ED3C28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B0ED761-7F14-41D2-851A-115EA0ED3C28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

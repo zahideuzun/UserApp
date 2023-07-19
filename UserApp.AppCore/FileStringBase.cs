@@ -8,9 +8,9 @@ using UserApp.AppCore.Core.Bases;
 
 namespace UserApp.AppCore
 {
-    public static class FileStringBase
+    public class FileStringBase
     {
-        public static string SaveFileToTempLocation(IFormFile file)
+        public  string SaveFileToTempLocation(IFormFile file)
         {
            
             var extension = Path.GetExtension(file.FileName);

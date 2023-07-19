@@ -36,8 +36,13 @@ namespace UserApp.UI.Controllers
         {
             if (imageFile != null)
             {
-                var tempFilePath = FileStringBase.SaveFileToTempLocation(imageFile);
+                FileStringBase fileStringBase = new FileStringBase();
+                var tempFilePath = fileStringBase.SaveFileToTempLocation(imageFile);
                 addedUser.ImageURL = tempFilePath;
+            }
+            else
+            {
+                addedUser.ImageURL = string.Empty;
             }
             var result = await _userProvider.AddUser(addedUser);
             if (result.IsSuccessful)
@@ -61,7 +66,8 @@ namespace UserApp.UI.Controllers
         {
             if (imageFile != null)
             {
-                var tempFilePath = FileStringBase.SaveFileToTempLocation(imageFile);
+                FileStringBase fileStringBase = new FileStringBase();
+                var tempFilePath = fileStringBase.SaveFileToTempLocation(imageFile);
                 updatedUser.ImageURL = tempFilePath;
             }
             else

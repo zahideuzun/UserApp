@@ -69,10 +69,10 @@ namespace UserApp.BLL.Concrate
             return new ErrorResult("User not found");
         }
 
-        public void Dispose()
-        {
-            _repository.Dispose();
-        }
+        //public void Dispose()
+        //{
+        //    _repository.Dispose();
+        //}
 
         public UserDTO Get(int id)
         {

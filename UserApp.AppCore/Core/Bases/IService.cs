@@ -8,7 +8,7 @@ using UserApp.AppCore.Results.Bases;
 
 namespace UserApp.AppCore.Core.Bases
 {
-    public interface IService<out TModel, in TAddModel, in TUpdateModel> : IDisposable where TModel : new()
+    public interface IService<out TModel, in TAddModel, in TUpdateModel>  where TModel : new()
     {
         IQueryable<TModel> GetAll();
         TModel Get(int id);

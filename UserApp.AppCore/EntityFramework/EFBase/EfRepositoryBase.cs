@@ -14,7 +14,7 @@ namespace UserApp.AppCore.EntityFramework.EFBase
 		  IInsertableRepo<TEntity>,
 		  IInsertableRepoAsync<TEntity>,
 		  IUpdatetableRepoAsync<TEntity>,
-	IDeletableRepoAsync<TEntity>, IDisposable
+	IDeletableRepoAsync<TEntity> 
 		  where TEntity : class, IEntity
 		 where TContext : DbContext, new()
 	{
@@ -167,10 +167,10 @@ namespace UserApp.AppCore.EntityFramework.EFBase
             await _context.SaveChangesAsync();
         }
 
-        public void Dispose()
-        {
-            _context?.Dispose();
-            GC.SuppressFinalize(this);
-        }
+        //public void Dispose()
+        //{
+        //    _context?.Dispose();
+        //    GC.SuppressFinalize(this);
+        //}
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
+using NLog;
 using UserApp.Api.Controllers;
 using UserApp.AppCore.DTOs.UserDTO;
 using UserApp.AppCore.Results;
@@ -12,11 +13,14 @@ namespace UserApp.NUnitTest
     {
         private readonly Mock<IUserManager> _mockUserManager;
         private readonly UserController _userController;
+        private readonly Logger _logger;
 
         public UserControllerNUnitTests()
         {
             _mockUserManager = new Mock<IUserManager>();
             _userController = new UserController(_mockUserManager.Object);
+            _logger = LogManager.GetCurrentClassLogger();
+            
         }
 
         [Test]
@@ -43,6 +47,7 @@ namespace UserApp.NUnitTest
             // Assert
             Assert.NotNull(result);
             Assert.AreEqual(200, result.StatusCode);
+            _logger.Error("gdfgdf");
         }
 
         [Test]

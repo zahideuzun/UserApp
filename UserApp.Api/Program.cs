@@ -1,9 +1,7 @@
 using AutoMapper;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using NLog.Extensions.Logging;
-using UserApp.AppCore.Core.Bases;
 using UserApp.BLL.Abstract;
 using UserApp.BLL.Concrate;
 using UserApp.DAL.Context;
@@ -12,11 +10,12 @@ using UserApp.DAL.Repositories.Derived;
 
 namespace UserApp.Api
 {
-	public class Program
+    public class Program
 	{
 		public static void Main(string[] args)
 		{
-			var builder = WebApplication.CreateBuilder(args);
+            
+            var builder = WebApplication.CreateBuilder(args);
 
 			// Add services to the container.
 
@@ -58,7 +57,7 @@ namespace UserApp.Api
             {
                 loggingBuilder.ClearProviders();
                 loggingBuilder.SetMinimumLevel(LogLevel.Trace);
-                loggingBuilder.AddNLog(); // NLog'un AspNetCore entegrasyonunu ekleyin
+                loggingBuilder.AddNLog();
             });
             #endregion
 
@@ -76,7 +75,7 @@ namespace UserApp.Api
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "swagger");
             });
-
+            
             app.MapControllers();
 
 			app.Run();

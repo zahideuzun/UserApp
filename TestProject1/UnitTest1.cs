@@ -1,4 +1,4 @@
-ï»¿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NLog;
 using UserApp.Api.Controllers;
@@ -7,25 +7,23 @@ using UserApp.AppCore.Results;
 using UserApp.AppCore.Results.Bases;
 using UserApp.BLL.Abstract;
 
-namespace UserApp.XUnitTest
+namespace TestProject1
 {
-    public class UserControllerTests 
-
+    public class UnitTest1
     {
         private readonly Mock<IUserManager> _mockUserManager;
         private readonly UserController _userController;
         private readonly Logger _logger;
 
 
-        public UserControllerTests()
+        public UnitTest1()
         {
             _mockUserManager = new Mock<IUserManager>();
             _userController = new UserController(_mockUserManager.Object);
             _logger = LogManager.GetCurrentClassLogger();
             //LogManager.Setup().LoadConfigurationFromFile("Nlog.config");
-           
+
         }
-        
         [Fact]
         public void GetAll_ReturnsAListOfUsers()
         {
@@ -69,7 +67,7 @@ namespace UserApp.XUnitTest
             var userToAdd = new AddUserDTO
             {
                 Name = "Kerem",
-                Surname = "YardÄ±m",
+                Surname = "Yardým",
                 PhoneNumber = "13245679801",
                 Email = "ky@gmail.com",
                 ImageURL = "12345keremfoto.jpg",
@@ -97,7 +95,7 @@ namespace UserApp.XUnitTest
             var userToAdd = new AddUserDTO
             {
                 Name = "Kerem",
-                Surname = "YardÄ±m",
+                Surname = "Yardým",
                 PhoneNumber = "13245679801",
                 Email = "k@gmail.com",
                 ImageURL = "12345keremfoto.jpg",
@@ -133,7 +131,7 @@ namespace UserApp.XUnitTest
 
                 _mockUserManager.Setup(service => service.UpdateAsync(25, commentToUpdate)).Returns(expectedServiceResult);
 
-                var logEvent = new LogEventInfo(LogLevel.Info, _logger.Name, "Test baÅŸladÄ±.");
+                var logEvent = new LogEventInfo(LogLevel.Info, _logger.Name, "Test baþladý.");
                 logEvent.Properties["TestDateTime"] = DateTime.Now;
                 _logger.Log(logEvent);
 
@@ -143,7 +141,7 @@ namespace UserApp.XUnitTest
                 // Assert
                 Assert.True(result is ObjectResult objectResult && objectResult.StatusCode == 200);
 
-                logEvent = new LogEventInfo(LogLevel.Trace, _logger.Name, $"Test baÅŸarÄ±yla bitti. {nameof(UpdatePost_ReturnsSuccessResultWhenUserIsUpdated)}");
+                logEvent = new LogEventInfo(LogLevel.Trace, _logger.Name, $"Test baþarýyla bitti. {nameof(UpdatePost_ReturnsSuccessResultWhenUserIsUpdated)}");
                 logEvent.Properties["TestDateTime"] = DateTime.Now;
                 logEvent.Properties["TestSuccess"] = true;
                 _logger.Log(logEvent);
@@ -153,11 +151,11 @@ namespace UserApp.XUnitTest
 
             catch (Exception ex)
             {
-                // Test baÅŸarÄ±sÄ±z oldu, hata logla
-                var logEvent = new LogEventInfo(LogLevel.Error, _logger.Name, $"Test baÅŸarÄ±sÄ±z oldu: {nameof(UpdatePost_ReturnsSuccessResultWhenUserIsUpdated)}" + ex.Message);
+                // Test baþarýsýz oldu, hata logla
+                var logEvent = new LogEventInfo(LogLevel.Error, _logger.Name, $"Test baþarýsýz oldu: {nameof(UpdatePost_ReturnsSuccessResultWhenUserIsUpdated)}" + ex.Message);
                 _logger.Log(logEvent);
 
-                // Testi tekrar fÄ±rlat, bu sayede test Ã§erÃ§evesi baÅŸarÄ±sÄ±zlÄ±ÄŸÄ± alacaktÄ±r
+                // Testi tekrar fýrlat, bu sayede test çerçevesi baþarýsýzlýðý alacaktýr
                 throw;
             }
         }
@@ -185,39 +183,5 @@ namespace UserApp.XUnitTest
             // Assert
             Assert.True(result is ObjectResult objectResult && objectResult.StatusCode == 200);
         }
-
-        
-
-        //[Fact]
-        //public void SaveFileToTempLocation_ShouldSaveFileAndReturnFileName()
-        //{
-        //    // Arrange
-        //    var formFileMock = new Mock<IFormFile>();
-        //    string fileName = "test.jpg";
-        //    formFileMock.Setup(f => f.FileName).Returns(fileName);
-
-        //    var fileStringBase = new FileStringBase();
-
-        //    // Act
-        //    string result = fileStringBase.SaveFileToTempLocation(formFileMock.Object);
-
-        //    // Assert
-        //    Assert.NotNull(result);
-        //    Assert.EndsWith(".jpg", result);
-
-        //    // Check if the file exists in the expected location
-        //    string expectedLocation = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", result);
-        //    Assert.True(File.Exists(expectedLocation));
-
-        //    // Clean up the test file
-        //    File.Delete(expectedLocation);
-        //}
-
-
-
-
-
-
-
     }
 }

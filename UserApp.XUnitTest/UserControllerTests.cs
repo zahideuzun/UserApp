@@ -1,19 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
+﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UserApp.Api.Controllers;
-using UserApp.AppCore;
 using UserApp.AppCore.DTOs.UserDTO;
 using UserApp.AppCore.Results;
 using UserApp.AppCore.Results.Bases;
 using UserApp.BLL.Abstract;
-using UserApp.BLL.Concrate;
 
 namespace UserApp.XUnitTest
 {

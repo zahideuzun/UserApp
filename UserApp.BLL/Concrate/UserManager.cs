@@ -1,21 +1,10 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Identity.Client;
 using UserApp.AppCore.DTOs.UserDTO;
 using UserApp.AppCore.Results;
 using UserApp.AppCore.Results.Bases;
 using UserApp.BLL.Abstract;
 using UserApp.DAL.Entities;
-using UserApp.DAL.Repositories.Infrastructor;
-using UserApp.DAL.Repositories;
 using UserApp.DAL.Repositories.Derived;
-using UserApp.AppCore.Core.Bases;
-using System.Data.Entity;
-using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 
 namespace UserApp.BLL.Concrate
 {

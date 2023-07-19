@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UserApp.AppCore.Results.Bases;
+﻿using UserApp.AppCore.Results.Bases;
 
 namespace UserApp.AppCore.Results
 {
-	public class SuccessResult : Result
+    public class SuccessResult : Result
 	{
 		public SuccessResult(string message) : base(true, message)
 		{

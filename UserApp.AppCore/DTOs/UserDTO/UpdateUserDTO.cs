@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace UserApp.AppCore.DTOs.UserDTO
+﻿namespace UserApp.AppCore.DTOs.UserDTO
 {
     public class UpdateUserDTO
 	{

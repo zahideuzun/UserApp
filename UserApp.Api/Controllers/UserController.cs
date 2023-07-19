@@ -1,14 +1,11 @@
-﻿using Microsoft.AspNetCore.DataProtection.KeyManagement;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using UserApp.AppCore.BaseApiType;
 using UserApp.AppCore.DTOs.UserDTO;
-using UserApp.AppCore.Results.Bases;
 using UserApp.BLL.Abstract;
 
 namespace UserApp.Api.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]")]
 	[ApiController]
 	public class UserController : ControllerBase
 	{

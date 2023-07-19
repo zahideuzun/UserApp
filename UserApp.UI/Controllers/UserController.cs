@@ -2,9 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using UserApp.AppCore;
 using UserApp.AppCore.DTOs.UserDTO;
-using UserApp.AppCore.Results;
-using UserApp.BLL.Concrate;
-using UserApp.DAL.Entities;
 using UserApp.UI.ApiProvider;
 
 namespace UserApp.UI.Controllers

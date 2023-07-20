@@ -6,7 +6,6 @@ namespace UserApp.AppCore
     {
         public  string SaveFileToTempLocation(IFormFile file)
         {
-           
             var extension = Path.GetExtension(file.FileName);
             var newImageName = Guid.NewGuid() + extension;
             var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/", newImageName);

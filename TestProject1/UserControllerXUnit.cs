@@ -15,15 +15,14 @@ namespace TestProject1
         private readonly UserController _userController;
         private readonly Logger _logger;
 
-
         public UserControllerXUnit()
         {
             _mockUserManager = new Mock<IUserManager>();
             _userController = new UserController(_mockUserManager.Object);
             _logger = LogManager.GetCurrentClassLogger();
-            //LogManager.Setup().LoadConfigurationFromFile("Nlog.config");
 
         }
+
         [Fact]
         public void GetAll_ReturnsAListOfUsers()
         {
@@ -87,7 +86,7 @@ namespace TestProject1
             _mockUserManager.Verify(repo => repo.AddAsync(userToAdd), Times.Once);
         }
 
-        // ayni email adresiyle yeni bir ekleme yapamayacagim icin error result donecek. status code yine 200 fakat result tipi farkli?
+        // ayni email adresiyle yeni bir ekleme yapamayacagim icin error result donecek. status code yine 200 fakat result tipi farkli
         [Fact]
         public async void AddPost_ReturnsErrorResultWhenUserIsAdded()
         {
@@ -125,19 +124,15 @@ namespace TestProject1
             }
             catch (Exception ex)
             {
-
-                // Test baþarýsýz oldu, hata logla
                 var logEvent = new LogEventInfo(LogLevel.Error, _logger.Name, $"Test baþarýsýz oldu: {nameof(AddPost_ReturnsErrorResultWhenUserIsAdded)}" + ex.Message);
                 _logger.Log(logEvent);
-
-                // Testi tekrar fýrlat, bu sayede test çerçevesi baþarýsýzlýðý alacaktýr
                 throw;
             }
             
         }
 
         [Fact]
-        public async void UpdatePost_ReturnsSuccessResultWhenUserIsUpdated()
+        public async Task UpdatePost_ReturnsSuccessResultWhenUserIsUpdated()
         {
             try
             {
@@ -173,12 +168,8 @@ namespace TestProject1
 
             catch (Exception ex)
             {
-                // Test baþarýsýz oldu, hata logla
                 var logEvent = new LogEventInfo(LogLevel.Error, _logger.Name, $"Test baþarýsýz oldu: {nameof(UpdatePost_ReturnsSuccessResultWhenUserIsUpdated)}" + ex.Message);
                 _logger.Log(logEvent);
-
-                // Testi tekrar fýrlat, bu sayede test çerçevesi baþarýsýzlýðý alacaktýr
-                throw;
             }
         }
 

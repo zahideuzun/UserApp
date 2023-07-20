@@ -4,6 +4,7 @@ namespace UserApp.AppCore
 {
     public class FileStringBase
     {
+        //todo bu metoda nasil unit test yazarim? 
         public  string SaveFileToTempLocation(IFormFile file)
         {
             var extension = Path.GetExtension(file.FileName);

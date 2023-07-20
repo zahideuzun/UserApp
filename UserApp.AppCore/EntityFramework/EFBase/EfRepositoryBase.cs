@@ -3,12 +3,10 @@ using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 using UserApp.AppCore.Core.Bases;
 using UserApp.AppCore.EntityFramework.Data;
-using UserApp.AppCore.Results;
-using UserApp.AppCore.Results.Bases;
 
 namespace UserApp.AppCore.EntityFramework.EFBase
 {
-	public class EfRepositoryBase<TContext, TEntity>
+    public class EfRepositoryBase<TContext, TEntity>
 		: ISelectableRepo<TEntity>,
 		  ISelectableRepoAsync<TEntity>,
 		  IInsertableRepo<TEntity>,

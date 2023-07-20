@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UserApp.AppCore.EntityFramework.EFBase;
+﻿using UserApp.AppCore.EntityFramework.EFBase;
 using UserApp.DAL.Context;
 using UserApp.DAL.Entities;
-using UserApp.DAL.Repositories.Infrastructor;
 
 namespace UserApp.DAL.Repositories.Derived
 {
